@@ -6,6 +6,7 @@
 #include "Student.h"
 #include "StudentList.h"
 
+
 using namespace std;
 
 void ReadStudentData();// Read student inf0 including first and last name and test score
@@ -83,11 +84,37 @@ void ReadStudentData()
 		sList = sortList;
 	}
 
+	bool isPathRelative(string filename)
+	{
+		if (filename[0] == '.')
+			return true;
+		else
+			return false;
+	}//End of function isPathRelative
+
+	string getAbsolutePath(string inFilename)
+	{
+		char *filepath;
+		filepath = (char *)inFilename.c_str();
+		char fullpath[_MAX_PATH];
+		if (_fullpath(fullpath, filepath, _MAX_PATH) != NULL)
+		{
+			return fullpath;
+		}
+		return inFilename;
+	} //End of function getAbsolutePath
+
 	void WriteStudentData()
 	{
 		
+		if (isPathRelative(inFilename))
+		{
+			inFilename = getAbsolutePath(inFilename);
+		} //End of IF
+		
 		string filename = inFilename.substr(0, inFilename.rfind(".")) + "-graded.txt";
 		
+
 		ofstream studentfile(filename);
 		
 		try
